@@ -14,10 +14,11 @@ class CreateQuizzTable extends Migration
     public function up()
     {
         Schema::create('quizz', function (Blueprint $table) {
-            $table->string('id')->unique();
+            $table->string('id', 190);
             $table->string('words');
             $table->integer('current');
             $table->timestamps();
+            $table->primary('id');
         });
     }
 
