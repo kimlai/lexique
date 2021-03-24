@@ -16,13 +16,19 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::middleware('throttle:30,1')->group(function () {
+  // lexicon
+  Route::post('/add-word', [LexiconController::class, 'addWord']);
+  Route::post('/update-word', [LexiconController::class, 'updateWord']);
+  Route::post('delete-word', [LexiconController::class, 'deleteWord']);
+  Route::post('add-tag', [LexiconController::class, 'addTagToWord']);
+
+  // quizz
+  Route::post('/new-quizz', [QuizzController::class, 'createQuizz']);
+  Route::post('/quizz/{id}/next', [QuizzController::class, 'nextWord']);
+});
+
 Route::get('/lexique', [LexiconController::class, 'lexicon']);
-Route::post('/add-word', [LexiconController::class, 'addWord']);
-Route::post('/update-word', [LexiconController::class, 'updateWord']);
-Route::post('delete-word', [LexiconController::class, 'deleteWord']);
-Route::post('add-tag', [LexiconController::class, 'addTagToWord']);
 
 Route::get('/', [QuizzController::class, 'themesSelection']);
-Route::post('/new-quizz', [QuizzController::class, 'createQuizz']);
 Route::get('/quizz/{id}', [QuizzController::class, 'quizz']);
-Route::post('/quizz/{id}/next', [QuizzController::class, 'nextWord']);
