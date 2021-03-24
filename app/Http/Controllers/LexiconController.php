@@ -89,4 +89,19 @@ class LexiconController
     );
     return response()->noContent();
   }
+
+  public function removetagFromWord(Request $request)
+  {
+    $data = $request->validate(
+      [
+        "word_id" => "required|integer|exists:words,id",
+        "tag_id" => "required|integer|exists:tags,id",
+      ]
+    );
+    DB::delete(
+      "DELETE FROM tag_word WHERE word_id = ? AND tag_id = ?",
+      [$data["word_id"], $data["tag_id"]]
+    );
+    return response()->noContent();
+  }
 }

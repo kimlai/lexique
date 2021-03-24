@@ -20,8 +20,9 @@ Route::middleware('throttle:30,1')->group(function () {
   // lexicon
   Route::post('/add-word', [LexiconController::class, 'addWord']);
   Route::post('/update-word', [LexiconController::class, 'updateWord']);
-  Route::post('delete-word', [LexiconController::class, 'deleteWord']);
-  Route::post('add-tag', [LexiconController::class, 'addTagToWord']);
+  Route::post('/delete-word', [LexiconController::class, 'deleteWord']);
+  Route::post('/add-tag', [LexiconController::class, 'addTagToWord']);
+  Route::post('/remove-tag', [LexiconController::class, 'removeTagFromWord']);
 
   // quizz
   Route::post('/new-quizz', [QuizzController::class, 'createQuizz']);

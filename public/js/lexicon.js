@@ -34,17 +34,20 @@ function debounce(func, wait) {
  *--------------------------*/
 document.querySelectorAll(".tag").forEach(element => {
     element.addEventListener("click", event => {
-        element.classList.add("active");
         const tag = event.target;
         const form = new FormData();
         form.set("word_id", tag.dataset.wordId);
         form.set("tag_id", tag.dataset.tagId);
         const headers = new Headers();
         headers.append("X-CSRF-TOKEN", element.dataset.csrf);
-        fetch("add-tag", {
+        const url = element.classList.contains("active")
+            ? "/remove-tag"
+            : "/add-tag";
+        fetch(url, {
             method: "POST",
             body: form,
             headers
         });
+        element.classList.toggle("active");
     });
 });
